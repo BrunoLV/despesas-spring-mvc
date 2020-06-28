@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="#{page.title}"></title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-pagina">
+            <img src="/images/lancamento.png" alt="icone lancamento">
+            <h1 class="titulo-pagina" th:text="#{page.header}"></h1>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="secao-menu">
+            <ul class="menu">
+                <li>
+                    <div class="botao"><a class="btn btn-novo" th:title="#{button.novo}" th:href="${(#mvc.url('LC#novo')).build()}"></a></div>
+                </li>
+                <li>
+                    <div class="botao"><a class="btn btn-relatorio" th:title="#{button.relatorio}"></a></div>
+                </li>
+            </ul>
+        </div>
+
+        <section class="secao-pesquisa">
+            <form action="#" th:action="@{/lancamento/lista}" th:object="${filtro}" method="post">
+                <fieldset class="fieldset-pesquisa">
+                
+                    <legend th:text="#{fieldset.pesquisa.legend}"></legend>
+
+                    <div class="campos-pesquisa">
+                        <label for="data" th:text="#{label.pesquisa.data}"></label>
+                        <input class="input input-25-percento placeholder" type="text" id="data" th:field="*{data}" th:value="*{data}">
+                        <label for="descricao" th:text="#{label.pesquisa.descricao}"></label>
+                        <input class="input input-50-percento" type="text" id="descricao" th:field="*{descricao}" th:value="*{descricao}">
+                        <label for="tipo" th:text="#{label.pesquisa.tipo}"></label>
+                        <select class="input-select input-25-percento" id="tipo" th:field="*{tipo}">
+                            <option th:value="${null}" th:text="Todos"></option>
+                            <option th:each="tipo: ${tipos}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
+                        </select>
+                    </div>
+
+                    <div class="comandos-formulario">
+                        <div class="botao"><button type="submit" class="btn btn-pesquisar comando" th:title="#{button.pesquisar}"></button></div>
+                        <div class="botao"><button type="reset" class="btn btn-limpar comando" th:title="#{button.limpar}"></button></div>
+                    </div>
+                    
+                </fieldset>
+            </form>
+        </section>
+
+        <section class="secao-lista">
+        
+        	<div class="sumario">
+        		<div class="item-sumario">
+        			<img class="imagem-sumario" alt="sumario debito" src="/images/dinheiro-menos.png">
+        			<span class="texto-sumario debito" th:text="${#numbers.formatDecimal(totalDebitos, 1, 'POINT', 2, 'COMMA')}"></span>
+        		</div>
+        		<div class="item-sumario">
+        			<img class="imagem-sumario" alt="sumario credito" src="/images/dinheiro-mais.png">
+        			<span class="texto-sumario credito" th:text="${#numbers.formatDecimal(totalCreditos, 1, 'POINT', 2, 'COMMA')}"></span>
+        		</div>        	
+        	</div>
+        
+            <table class="tabela-lancamentos">
+                <thead>
+                    <tr>
+                    	<th colspan="3"></th>
+                    	<th th:text="#{table.header.data}"></th>
+                    	<th class="conteudo-a-esquerda" th:text="#{table.header.descricao}"></th>
+                    	<th class="conteudo-a-direita" th:text="#{table.header.valor}"></th>
+                    	<th th:text="#{table.header.tipo}"></th>
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr th:each="lancamento : ${lista}" th:id="${lancamento.id}">
+                        <td class="acao"><a class="btn btn-editar" th:title="#{button.editar}" th:href="${(#mvc.url('LC#editar').arg(0, lancamento.id)).build()}"></a></td>
+                        <td class="acao"><a class="btn btn-deletar" th:title="#{button.deletar}" th:href="${(#mvc.url('LC#deletar').arg(0, lancamento.id)).build()}"></a></td>
+                        <td class="acao"><a class="btn btn-detalhar" th:title="#{button.detalhar}" th:href="${(#mvc.url('LC#detalhar').arg(0, lancamento.id)).build()}"></a></td>
+                        <td class="conteudo-centralizado" th:text="${{lancamento.data}}"></td>
+                        <td class="conteudo-a-esquerda" th:text="${lancamento.descricao}"></td>
+                        <td class="conteudo-a-direita" th:classappend="${lancamento.debito} ? valor-negativo : valor-positivo" th:text="${#numbers.formatDecimal(lancamento.valor, 1, 'POINT', 2, 'COMMA')}"></td>
+                    	<td class="conteudo-centralizado" th:classappend="${lancamento.debito} ? valor-negativo : valor-positivo" th:text="${lancamento.tipo.descricao}"></td>
+                	</tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="/js/jquery-1.12.4.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/jquery.mask.min.js"></script>
+    <script>
+        $(function () {
+            $(document).tooltip({
+                track: true
+            });
+            $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+        });
+    </script>
+</body>
+</html>

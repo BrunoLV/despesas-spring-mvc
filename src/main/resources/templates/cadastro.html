@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="#{page.title}">Lista</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-pagina">
+            <img src="/images/lancamento.png" alt="icone lancamento">
+            <h1 class="titulo-pagina" th:text="#{page.header}"></h1>
+        </div>
+    </header>
+    
+    <main>
+        	
+    	<div class="secao-menu">
+            <ul class="menu">
+                <li>
+                    <div class="botao"><a class="btn btn-voltar" th:title="#{button.voltar.listagem}" th:href="${(#mvc.url('LC#lista')).build()}"></a></div>
+                </li>
+            </ul>
+        </div>
+    
+    	<section class="secao-cadastro">
+            <form action="#" th:action="@{/lancamento/salva}" th:object="${lancamento}" method="post">
+                
+                <input type="hidden" id="idLancamento" th:field="*{id}" th:value="*{id}">
+                
+                <fieldset class="fieldset-cadastro">
+                
+                    <legend th:text="#{fieldset.cadastro.lengend}"></legend>
+
+                    <div class="campos-cadastro">
+                        <label for="data" th:text="#{label.cadastro.data}"></label>
+                        <input class="input input-25-percento placeholder" type="text" id="data" th:field="*{data}" th:value="*{data}">
+                        <label for="descricao" th:text="#{label.cadastro.descricao}"></label>
+                        <input class="input input-50-percento" type="text" id="descricao" th:field="*{descricao}" th:value="*{descricao}">
+                        <label for="valor" th:text="#{label.detalhe.valor}"></label>
+    					<input id="valor" class="input input-50-percento valor" th:field="*{valor}" th:value="*{valor}">
+                        <label for="tipo" th:text="#{label.cadastro.tipo}"></label>
+                        <select class="input-select input-25-percento" id="tipo" th:field="*{tipo}">
+                            <option th:each="tipo: ${tipos}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
+                        </select>
+                        <label for="observacoes" th:text="#{label.cadastro.observacoes}"></label>
+    					<textarea id="observacoes" class="input-textarea" th:field="*{observacao}" th:value="*{observacao}"></textarea>
+                    </div>
+
+                    <div class="comandos-formulario">
+                        <div class="botao"><button type="submit" class="btn btn-salvar comando" th:title="#{button.salvar}"></button></div>
+                        <div class="botao"><button type="reset" class="btn btn-limpar comando" th:title="#{button.limpar}"></button></div>
+                    </div>
+                    
+                </fieldset>
+            </form>
+        </section>
+    
+    </main>
+    
+    <script src="/js/jquery-1.12.4.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/jquery.mask.min.js"></script>
+    <script src="/js/jquery.maskMoney.min.js"></script>
+    <script>
+        $(function () {
+            $(document).tooltip({
+                track: true
+            });
+            $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+            $('.valor').maskMoney({decimal:'.', thousands:''});
+        });
+    </script>
+    
+</body>
+    
+</html>

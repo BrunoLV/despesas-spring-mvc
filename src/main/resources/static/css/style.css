@@ -1,0 +1,341 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+}
+
+header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.header-pagina {
+    width: 940px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.titulo-pagina {
+    margin-top: 50px;
+    margin-left: 10px;
+    vertical-align: middle;
+    font-size: 2em;
+    font-weight: bold;
+    text-decoration: underline
+}
+
+main {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.secao-menu {
+    width: 940px;
+    margin: 40px auto;
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+.menu li {
+    flex: none;
+    margin: 10px;
+}
+
+.secao-pesquisa {
+    width: 940px;
+    margin: 20px auto;
+}
+
+.fieldset-pesquisa {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 10px;
+}
+
+.fieldset-pesquisa > legend {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.campos-pesquisa {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    grid-gap: 5px;
+    padding: 5px;
+}
+
+.campos-pesquisa label {
+    vertical-align: middle;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.input {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.input-25-percento {
+    width: 25%;
+}
+
+.input-50-percento {
+    width: 50%;
+}
+
+.input-textarea {
+	font-family: 'Roboto', sans-serif;
+	font-size:1em;
+	padding: 5px;
+	border: 1px solid black;
+	width: 50%;
+	height: 120px;
+	resize: none;
+}
+
+.input-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    background-image: url('/images/down-arrow.png');
+    background-repeat: no-repeat;
+    background-position: 98% center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.input[disabled="disabled"], .input-textarea[disabled="disabled"] {
+	background: transparent;
+	color: black;
+}
+
+.comandos-formulario {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.comando {
+    flex: none;
+    margin: 10px;
+}
+
+.secao-lista {
+    width: 940px;
+    margin: 40px auto;
+}
+
+.tabela-lancamentos {
+    margin: 10px;
+    border: 1px solid black;
+}
+
+.tabela-lancamentos thead th {
+    border-bottom: 2px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+.tabela-lancamentos tbody td {
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+.tabela-lancamentos tbody tr:hover {
+    background-color: lightgray;
+}
+ 
+.tabela-lancamentos tbody td .btn {
+    display: block;
+    margin: auto;
+}
+
+.tabela-lancamentos tbody td.acao {
+    width: 5%;
+}
+
+.conteudo-centralizado {
+    text-align: center;
+}
+
+.conteudo-a-direita {
+    text-align: right;
+}
+
+.conteudo-a-esquerda {
+    text-align: left;
+}
+
+.botao {
+    position: relative;
+}
+
+.btn {
+    border: 1px solid black;
+    background-color: transparent;
+    padding: 5px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    transition: all 0.3s;
+    position: relative;
+    box-shadow: 0px 5px 0px grey;
+    top: 0px;
+    display: block;
+}
+
+.btn:active {
+    box-shadow: 0 1px 0 gray;
+    top: 4px;
+}
+
+.btn-editar:before {
+    content: url("/images/editar.png");
+}
+
+.btn-deletar:before {
+    content: url("/images/lixo.png");
+}
+
+.btn-detalhar:before {
+    content: url("/images/detalhar.png");
+}
+
+.btn-pesquisar:before {
+    content: url("/images/procurar.png");
+}
+
+.btn-limpar:before {
+    content: url("/images/limpar.png");
+}
+
+.btn-novo:before {
+    content: url("/images/add.png");
+}
+
+.btn-relatorio:before {
+    content: url("/images/relatorio.png");
+}
+
+.btn-voltar:before {
+    content: url("/images/voltar.png");
+}
+
+.btn-salvar:before {
+	content: url("/images/salva.png");
+}
+
+.sumario {
+	display: flex;
+	margin: 10px;
+}
+
+.item-sumario {
+	padding: 5px;
+	margin: 5px;
+}
+
+.imagem-sumario {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.texto-sumario {
+	text-align: center;
+	margin: 5px;
+	padding: 5px;
+}
+
+.credito {
+	color: blue;
+}
+
+.debito {
+	color: red;
+}
+
+.valor-negativo {
+    color: red;
+}
+
+.valor-positivo {
+    color: blue;
+}
+
+.ui-tooltip {
+    padding: 10px 20px;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    box-shadow: 0 0 1px black;
+}
+
+.secao-detalhes {
+    width: 940px;
+    margin: 20px auto;
+}
+
+.fieldset-detalhes {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 10px;
+}
+
+.fieldset-detalhes > legend {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.campos-detalhes {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-gap: 5px;
+    padding: 5px;
+}
+
+.campos-detalhes label {
+    vertical-align: middle;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.secao-cadastro {
+    width: 940px;
+    margin: 20px auto;
+}
+
+.fieldset-cadastro {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 10px;
+}
+
+.fieldset-cadastro > legend {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.campos-cadastro {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-gap: 5px;
+    padding: 5px;
+}
+
+.campos-cadastro label {
+    vertical-align: middle;
+    padding: 5px;
+    font-weight: bold;
+}

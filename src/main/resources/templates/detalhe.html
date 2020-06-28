@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="#{page.title}">Lista</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-pagina">
+            <img src="/images/lancamento.png" alt="icone lancamento">
+            <h1 class="titulo-pagina" th:text="#{page.header}"></h1>
+        </div>
+    </header>
+    
+    <main>
+    
+    	<div class="secao-menu">
+            <ul class="menu">
+                <li>
+                    <div class="botao"><a class="btn btn-editar" th:title="#{button.editar}" th:href="${(#mvc.url('LC#editar').arg(0, lancamento.id)).build()}"></a></div>
+                </li>
+                <li>
+                    <div class="botao"><a class="btn btn-voltar" th:title="#{button.voltar.listagem}" th:href="${(#mvc.url('LC#lista')).build()}"></a></div>
+                </li>
+            </ul>
+        </div>
+    	
+    	<section class="secao-detalhes">
+    	
+    		<fieldset class="fieldset-detalhes">
+    			<legend th:text="#{fieldset.detalhe.lengend}"></legend>
+    		
+    			<div class="campos-detalhes">
+    				<label for="data" th:text="#{label.detalhe.data}"></label>
+    				<input id="data" class="input input-25-percento" disabled="disabled" th:value="${{lancamento.data}}">
+    				
+    				<label for="descricao" th:text="#{label.detalhe.descricao}"></label>
+    				<input id="descricao" class="input input-50-percento" disabled="disabled" th:value="${lancamento.descricao}">
+    				
+    				<label for="valor" th:text="#{label.detalhe.valor}"></label>
+    				<input id="valor" class="input input-50-percento valor" disabled="disabled" th:value="${lancamento.valor}">
+    				
+    				<label for="tipo" th:text="#{label.detalhe.tipo}"></label>
+    				<input id="tipo" disabled="disabled" class="input input-25-percento" th:value="${lancamento.tipo.descricao}">
+    				
+    				<label for="observacoes" th:text="#{label.detalhe.observacoes}"></label>
+    				<textarea id="observacoes" class="input-textarea" disabled="disabled" th:text="${lancamento.observacao}"></textarea>
+    			</div>
+    		</fieldset>
+    	
+    	</section>
+    	
+    </main>
+    
+    <script src="/js/jquery-1.12.4.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/jquery.mask.min.js"></script>
+    <script src="/js/jquery.maskMoney.min.js"></script>
+    <script>
+        $(function () {
+            $(document).tooltip({
+                track: true
+            });
+            $('.valor').maskMoney({decimal:'.', thousands:''});
+        });
+    </script>
+    
+</body>
+    
+</html>
