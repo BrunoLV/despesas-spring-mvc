@@ -6,8 +6,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,7 +68,12 @@ public class LancamentoController {
 	}
 
 	@PostMapping("/salva")
-	public String salva(@ModelAttribute Lancamento lancamento) {
+	public String salva(@ModelAttribute @Valid final Lancamento lancamento, final BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "cadastro";
+		}
+		
 		if (lancamento.getId() != null) {
 			commandService.edita(new ComandoEdicaoLancamento(lancamento.getId(), lancamento));
 		} else {

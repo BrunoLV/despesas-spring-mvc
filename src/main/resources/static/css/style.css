@@ -45,6 +45,20 @@ main {
     margin: 10px;
 }
 
+.lista-erro {
+	display: block;
+	list-style-image: url("/images/erro.png");
+	list-style-position: inside;
+	border: 3px solid black;
+	margin: 10px;
+}
+
+.lista-erro li {
+	margin: 10px;
+	color: black;
+	font-weight: bolder;
+}
+
 .secao-pesquisa {
     width: 940px;
     margin: 20px auto;

@@ -32,7 +32,11 @@
     
     	<section class="secao-cadastro">
             <form action="#" th:action="@{/lancamento/salva}" th:object="${lancamento}" method="post">
-                
+              	
+              	<ul class="lista-erro" th:if="${#fields.hasErrors('*')}">
+        			<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        		</ul>
+              	  
                 <input type="hidden" id="idLancamento" th:field="*{id}" th:value="*{id}">
                 
                 <fieldset class="fieldset-cadastro">

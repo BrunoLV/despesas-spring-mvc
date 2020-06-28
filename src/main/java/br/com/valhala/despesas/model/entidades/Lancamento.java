@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import br.com.valhala.despesas.model.enumerados.TipoLancamento;
 import lombok.AllArgsConstructor;
@@ -33,16 +36,19 @@ public class Lancamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "{lancamento.data.obrigatorio}")
     private LocalDate data;
 
+    @NotBlank(message = "{lancamento.descricao.obrigatorio}")
     private String descricao;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @NotNull(message = "{lancamento.tipo.obrigatorio}")
     private TipoLancamento tipo;
 
-    @NotNull
+    @NotNull(message = "{lancamento.valor.obrigatorio}")
+    @Positive(message = "{lancamento.valor.maiorZero}")
+    @Column(precision = 17, scale = 2)
     private BigDecimal valor;
 
     private String observacao;
