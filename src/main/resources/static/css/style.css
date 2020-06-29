@@ -237,10 +237,6 @@ main {
     content: url("/images/add.png");
 }
 
-.btn-relatorio:before {
-    content: url("/images/relatorio.png");
-}
-
 .btn-voltar:before {
     content: url("/images/voltar.png");
 }
