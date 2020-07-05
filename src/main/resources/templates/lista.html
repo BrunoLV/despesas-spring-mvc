@@ -31,14 +31,22 @@
         </div>
 
         <section class="secao-pesquisa">
+        
             <form action="#" th:action="@{/lancamento/lista}" th:object="${filtro}" method="post">
+           		
+           		<ul class="lista-erro" th:if="${not #lists.isEmpty(erros)}">
+        			<li th:each="erro : ${erros}" th:text="${erro}"></li>
+        		</ul>
+           
                 <fieldset class="fieldset-pesquisa">
                 
                     <legend th:text="#{fieldset.pesquisa.legend}"></legend>
 
                     <div class="campos-pesquisa">
-                        <label for="data" th:text="#{label.pesquisa.data}"></label>
-                        <input class="input input-25-percento placeholder" type="text" id="data" th:field="*{data}" th:value="*{data}">
+                        <label for="dataInicio" th:text="#{label.pesquisa.dataInicio}"></label>
+                        <input class="input input-25-percento data" type="text" id="dataInicio" th:field="*{periodo.dataInicio}" th:value="*{periodo.dataInicio}">
+                        <label for="dataFim" th:text="#{label.pesquisa.dataFim}"></label>
+                        <input class="input input-25-percento data" type="text" id="dataFim" th:field="*{periodo.dataFim}" th:value="*{periodo.dataFim}">
                         <label for="descricao" th:text="#{label.pesquisa.descricao}"></label>
                         <input class="input input-50-percento" type="text" id="descricao" th:field="*{descricao}" th:value="*{descricao}">
                         <label for="tipo" th:text="#{label.pesquisa.tipo}"></label>
@@ -104,7 +112,7 @@
             $(document).tooltip({
                 track: true
             });
-            $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+            $('.data').mask("00/00/0000", {placeholder: "__/__/____"});
         });
     </script>
 </body>

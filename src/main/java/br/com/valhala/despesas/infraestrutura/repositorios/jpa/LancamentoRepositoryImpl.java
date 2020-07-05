@@ -28,8 +28,12 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryCustom {
         
         List<Predicate> predicados = new ArrayList<Predicate>();
         
-        if (filtro.getData() != null) {
-			predicados.add(cb.equal(root.get("data"), filtro.getData()));
+        if (filtro.getPeriodo().getDataInicio() != null) {
+			predicados.add(cb.greaterThanOrEqualTo(root.get("data"), filtro.getPeriodo().getDataInicio()));
+		}
+        
+        if (filtro.getPeriodo().getDataFim() != null) {
+			predicados.add(cb.lessThanOrEqualTo(root.get("data"), filtro.getPeriodo().getDataFim()));
 		}
         
         if (filtro.getDescricao() != null && !filtro.getDescricao().trim().isEmpty()) {

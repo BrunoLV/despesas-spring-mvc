@@ -3,8 +3,10 @@ package br.com.valhala.despesas.interfaces.web;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -46,11 +48,16 @@ public class LancamentoController {
 	}
 
 	private void preencheModelListagem(Model model, final Collection<Lancamento> lista) {
+		model.addAttribute("erros", Collections.emptyList());
 		model.addAttribute("lista", lista);
-		model.addAttribute("totalDebitos", lista.stream().filter(l -> l.getTipo() == TipoLancamento.DEBITO)
-				.map(l -> l.getValor()).reduce(BigDecimal.ZERO, (subtotal, valor) -> subtotal.add(valor)));
-		model.addAttribute("totalCreditos", lista.stream().filter(l -> l.getTipo() == TipoLancamento.CREDITO)
-				.map(l -> l.getValor()).reduce(BigDecimal.ZERO, (subtotal, valor) -> subtotal.add(valor)));
+		model.addAttribute("totalDebitos", lista.stream()
+												.filter(l -> l.getTipo() == TipoLancamento.DEBITO)
+												.map(l -> l.getValor())
+												.reduce(BigDecimal.ZERO, (subtotal, valor) -> subtotal.add(valor)));
+		model.addAttribute("totalCreditos", lista.stream()
+												 .filter(l -> l.getTipo() == TipoLancamento.CREDITO)
+												 .map(l -> l.getValor())
+												 .reduce(BigDecimal.ZERO, (subtotal, valor) -> subtotal.add(valor)));
 		model.addAttribute("filtro", new FiltroLancamento());
 	}
 
@@ -60,7 +67,15 @@ public class LancamentoController {
 	}
 
 	@PostMapping("/lista")
-	public String pesquisar(@ModelAttribute FiltroLancamento filtro, Model model) {
+	public String pesquisar(@ModelAttribute @Valid FiltroLancamento filtro, final BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			List<String> erros = bindingResult.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
+			model.addAttribute("erros", erros);
+			model.addAttribute("filtro", filtro);
+			return "lista";
+		}
+		
 		final Collection<Lancamento> lista = queryService.lista(filtro);
 		preencheModelListagem(model, lista);
 		model.addAttribute("filtro", filtro);

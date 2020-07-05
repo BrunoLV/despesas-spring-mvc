@@ -13,4 +13,9 @@ FROM openjdk:14
 WORKDIR /app
 COPY --from=build /home/app/target/despesas-spring-mvc.jar .
 EXPOSE 8080
+
+ADD wait-for-it.sh wait-for-it.sh
+RUN chmod +x wait-for-it.sh
+
+
 ENTRYPOINT ["java", "-jar", "--enable-preview", "-Dspring.profiles.active=docker", "despesas-spring-mvc.jar"]
